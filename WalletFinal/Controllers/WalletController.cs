@@ -12,7 +12,7 @@ namespace WalletFinal.Controllers
 {
     public class WalletController : Controller
     {
-        private BSE163111Entities db = new BSE163111Entities();
+        private BSE163111Entities1 db = new BSE163111Entities1();
 
         // GET: Wallet
         public ActionResult Index()
@@ -46,31 +46,15 @@ namespace WalletFinal.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WalletId,WaleedName,Description,Amount")] WalletBSE163111 walletBSE163111)
+        public ActionResult Create(WalletBSE163111 cvm)
         {
-            if (ModelState.IsValid)
-            {
-                db.WalletBSE163111.Add(walletBSE163111);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(walletBSE163111);
-        }
-
-        // GET: Wallet/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WalletBSE163111 walletBSE163111 = db.WalletBSE163111.Find(id);
-            if (walletBSE163111 == null)
-            {
-                return HttpNotFound();
-            }
-            return View(walletBSE163111);
+            WalletBSE163111 cat = new WalletBSE163111();
+            cat.WaleedName = cvm.WaleedName;
+            cat.Description = cvm.Description;
+            cat.Amount = cvm.Amount;
+            db.WalletBSE163111.Add(cat);
+            db.SaveChanges();
+            return View();
         }
 
         // POST: Wallet/Edit/5
